@@ -421,6 +421,7 @@ fn run() -> Result<()> {
     runner.execute(Step::Poetry, "Poetry", || generic::run_poetry(&ctx))?;
     runner.execute(Step::Zvm, "ZVM", || generic::run_zvm(&ctx))?;
     runner.execute(Step::Aqua, "aqua", || generic::run_aqua(&ctx))?;
+    runner.execute(Step::Uv, "uv", || generic::run_uv(&ctx))?;
 
     if should_run_powershell {
         runner.execute(Step::Powershell, "Powershell Modules Update", || {

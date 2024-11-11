@@ -166,6 +166,7 @@ pub enum Step {
     Yadm,
     Yarn,
     Zvm,
+    Uv,
 }
 
 #[derive(Deserialize, Default, Debug, Merge)]
@@ -889,7 +890,10 @@ impl Config {
     /// If the step appears either in the `--disable` command line argument
     /// or the `disable` option in the configuration, the function returns false.
     pub fn should_run(&self, step: Step) -> bool {
-        self.allowed_steps.contains(&step)
+        match step {
+            Step::Uv => self.commands.uv.unwrap_or(true),
+            _ => self.allowed_steps.contains(&step),
+        }
     }
 
     fn allowed_steps(opt: &CommandLineArgs, config_file: &ConfigFile) -> Vec<Step> {

@@ -774,6 +774,13 @@ pub fn run_composer_update(ctx: &ExecutionContext) -> Result<()> {
     Ok(())
 }
 
+pub fn run_uv(ctx: &ExecutionContext) -> Result<()> {
+    let uv = require("uv")?;
+
+    print_separator("uv");
+    ctx.run_type().execute(uv).args(["self", "update"]).status_checked()
+}
+
 pub fn run_dotnet_upgrade(ctx: &ExecutionContext) -> Result<()> {
     let dotnet = require("dotnet")?;
 
@@ -801,7 +808,6 @@ pub fn run_dotnet_upgrade(ctx: &ExecutionContext) -> Result<()> {
     let mut in_header = true;
     let mut packages = output
         .stdout
-        .lines()
         // Skip the header:
         //
         // Package Id      Version      Commands
